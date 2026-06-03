@@ -1,1 +1,59 @@
-# ... (copy from the example above, replace passwords with placeholders)
+- Dashboard:
+    - Frigate:
+        icon: frigate.png
+        href: https://frigate.speedalice.net
+        description: 카메라
+        server: my-docker
+        container: frigate
+
+    - Pi-hole:
+        icon: pi-hole.png
+        href: https://pihole.speedalice.net/admin/login
+        description: DNS & ad blocking
+        server: my-docker
+        container: pihole
+
+    - Vaultwarden:
+        icon: vaultwarden.png
+        href: https://vaultwarden.speedalice.net
+        description: Password manager
+        server: my-docker
+        container: vaultwarden
+
+    - Nextcloud:
+        icon: nextcloud.png
+        href: https://nextcloud.speedalice.net
+        description: File storage
+        server: my-docker
+        container: nextcloud
+
+    - Dockge:
+        icon: dockge.png
+        href: https://docker.speedalice.net
+        description: Stack manager
+        server: my-docker
+        container: dockge-dockge-1
+
+    - Uptime Kuma:
+        icon: uptime-kuma.png
+        href: https://uptime.speedalice.net/status/services
+        description: Uptime Monitor
+        server: my-docker
+        container: uptime-kuma
+        widget:
+          type: uptimekuma
+          url: https://uptime.speedalice.net
+          slug: services
+
+    - Grafana:
+        icon: grafana.png
+        href: https://monitor.speedalice.net
+        description: Server metrics
+        server: my-docker
+        container: grafana
+        widget:
+          type: grafana
+          url: https://monitor.speedalice.net
+          username: USERNAME_HERE
+          password: PASSWORD_HERE
+
