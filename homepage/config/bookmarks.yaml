@@ -1,0 +1,22 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/bookmarks
+
+- Developer:
+    - Github:
+        - abbr: GH
+          href: https://github.com/
+
+- Social:
+    - Instagram:
+        - abbr: IG
+          href: https://instagram.com/speedalice
+
+- Entertainment:
+    - YouTube:
+        - abbr: YT
+          href: https://youtube.com/
+- Business:
+    - Booksy:
+        - abbr: BK
+          href: https://biz.booksy.com/

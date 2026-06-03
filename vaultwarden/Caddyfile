@@ -1,0 +1,13 @@
+vaultwarden.speedalice.net {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+    reverse_proxy vaultwarden:80
+}
+
+frigate.speedalice.net {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+    reverse_proxy frigate:5000
+}

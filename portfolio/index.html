@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jae An</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f5f0;
+    --bg2: #eeeae2;
+    --ink: #1a1814;
+    --ink2: #6b6760;
+    --ink3: #9e9b97;
+    --accent: #2a4a3e;
+    --accent2: #4a7c6a;
+    --line: rgba(26,24,20,0.12);
+    --card: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 3rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--ink2);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(120px, 22vw, 320px);
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(26,24,20,0.06);
+    white-space: nowrap;
+    user-select: none;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 1rem;
+  }
+
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 2rem;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .hero-desc {
+    max-width: 480px;
+    color: var(--ink2);
+    font-size: 13px;
+    line-height: 1.8;
+    border-left: 2px solid var(--accent2);
+    padding-left: 1.25rem;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    right: 3rem;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    writing-mode: vertical-rl;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-scroll::before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 48px;
+    background: var(--ink3);
+  }
+
+  /* SECTION COMMON */
+  section {
+    padding: 6rem 3rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    max-width: 200px;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+
+  .about-heading em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .about-body {
+    color: var(--ink2);
+    line-height: 1.9;
+  }
+
+  .about-body p + p { margin-top: 1rem; }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 3rem;
+  }
+
+  .stat {
+    background: var(--bg);
+    padding: 1.5rem;
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink3);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .skill-card {
+    background: var(--bg);
+    padding: 2rem 1.75rem;
+    transition: background 0.2s;
+  }
+
+  .skill-card:hover { background: var(--card); }
+
+  .skill-icon {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .skill-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border: 1px solid var(--line);
+    color: var(--ink2);
+    letter-spacing: 0.04em;
+  }
+
+  /* PROJECTS */
+  .project-card {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0;
+    border: 1px solid var(--line);
+    margin-bottom: 1px;
+    background: var(--bg);
+    transition: background 0.2s;
+  }
+
+  .project-card:hover { background: var(--card); }
+
+  .project-num {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid var(--line);
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: var(--bg2);
+    line-height: 1;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .project-content {
+    padding: 2rem 2.5rem;
+  }
+
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-sub {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 1rem;
+  }
+
+  .project-desc {
+    color: var(--ink2);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    margin-top: 1.25rem;
+    border-bottom: 1px solid var(--accent2);
+    padding-bottom: 2px;
+    transition: opacity 0.2s;
+  }
+
+  .project-link:hover { opacity: 0.6; }
+
+  /* CONTACT */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .contact-heading em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 1rem;
+  }
+
+  .contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    transition: padding-left 0.2s;
+  }
+
+  .contact-link:hover { padding-left: 0.5rem; color: var(--accent); }
+
+  .contact-link-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 0.15rem;
+  }
+
+  .contact-link-val {
+    font-size: 13px;
+  }
+
+  .contact-arrow {
+    font-size: 1.2rem;
+    color: var(--ink3);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink3);
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { padding: 0 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-num { display: none; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="#">Jae An</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#problems">Problems</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">JA</div>
+  <p class="hero-eyebrow">Infrastructure Engineer · Sysadmin · IT</p>
+  <h1 class="hero-name">Jae<br><em>An</em></h1>
+  <p class="hero-desc">
+    Building reliable self-hosted infrastructure and multi-site networks from the ground up.
+    Based in New Jersey — open to full-time infrastructure and IT roles.
+  </p>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">About</p>
+  <div class="about-grid">
+    <div>
+      <h2 class="about-heading">Systems thinker.<br><em>Hands-on</em> builder.</h2>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num">A.S.</div>
+          <div class="stat-label">Computer Science</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Sites managed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">19</div>
+          <div class="stat-label">VLANs configured</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Uptime mindset</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-body fade-up">
+      <p>
+        I hold an A.S. in Computer Science and have spent my personal time designing
+        and maintaining real infrastructure — a self-hosted server stack and a multi-site business
+        network spanning three locations, connected via site-to-site VPN.
+      </p>
+      <p>
+        Much of what I do outside of work mirrors real-world infrastructure responsibilities:
+        network segmentation, Docker stack management, DNS troubleshooting, securing public-facing
+        services, and maintaining reliable systems across multiple locations.
+      </p>
+      <p>
+        I pick things up fast, I don't shy away from the terminal, and I care about doing things right.
+        Looking to bring that hands-on experience into a full-time infrastructure or IT role.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Skills</p>
+  <div class="skills-grid">
+    <div class="skill-card fade-up">
+      <div class="skill-icon">01</div>
+      <div class="skill-title">Containerization</div>
+      <p style="color: var(--ink2); font-size: 13px;">Deploying and managing multi-container environments with Docker and Docker Compose. Comfortable with Dockge for stack management.</p>
+      <div class="skill-tags">
+        <span class="tag">Docker</span>
+        <span class="tag">Docker Compose</span>
+        <span class="tag">Dockge</span>
+      </div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-icon">02</div>
+      <div class="skill-title">Networking & DNS</div>
+      <p style="color: var(--ink2); font-size: 13px;">Multi-site network design with UniFi, VLAN segmentation, site-to-site VPN, reverse proxying with Caddy, and network-level ad blocking with Pi-hole.</p>
+      <div class="skill-tags">
+        <span class="tag">UniFi</span>
+        <span class="tag">VLANs</span>
+        <span class="tag">Site-to-Site VPN</span>
+        <span class="tag">WireGuard</span>
+        <span class="tag">Caddy</span>
+        <span class="tag">Pi-hole</span>
+        <span class="tag">DNS</span>
+      </div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-icon">03</div>
+      <div class="skill-title">Linux & CLI</div>
+      <p style="color: var(--ink2); font-size: 13px;">Day-to-day server administration over SSH, file management, scripting, and system monitoring on Ubuntu/Debian-based systems.</p>
+      <div class="skill-tags">
+        <span class="tag">Linux</span>
+        <span class="tag">SSH</span>
+        <span class="tag">Bash</span>
+        <span class="tag">CLI</span>
+      </div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-icon">04</div>
+      <div class="skill-title">Self-hosted Services</div>
+      <p style="color: var(--ink2); font-size: 13px;">Running and maintaining production-like services including file storage, password management, NVR, and monitoring dashboards.</p>
+      <div class="skill-tags">
+        <span class="tag">Nextcloud</span>
+        <span class="tag">Vaultwarden</span>
+        <span class="tag">Frigate</span>
+        <span class="tag">Homepage</span>
+      </div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-icon">05</div>
+      <div class="skill-title">Security</div>
+      <p style="color: var(--ink2); font-size: 13px;">Exposing services securely to the public internet with HTTPS, access controls, and keeping attack surface minimal.</p>
+      <div class="skill-tags">
+        <span class="tag">HTTPS / TLS</span>
+        <span class="tag">Cloudflare</span>
+        <span class="tag">Access Control</span>
+      </div>
+    </div>
+    <div class="skill-card fade-up">
+      <div class="skill-icon">06</div>
+      <div class="skill-title">Monitoring & Ops</div>
+      <p style="color: var(--ink2); font-size: 13px;">Keeping tabs on service health, resource usage, and uptime. Comfortable reading logs and diagnosing issues across the stack.</p>
+      <div class="skill-tags">
+        <span class="tag">Health Monitoring</span>
+        <span class="tag">Log Analysis</span>
+        <span class="tag">Troubleshooting</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 3rem; border: 1px solid var(--line); padding: 2rem 1.75rem; background: var(--bg);">
+    <div class="skill-icon" style="margin-bottom: 0.75rem;">Currently learning</div>
+    <p style="color: var(--ink2); font-size: 13px; margin-bottom: 1rem;">Actively working toward certifications and expanding into new areas of infrastructure and systems administration.</p>
+    <div class="skill-tags">
+      <span class="tag">CompTIA A+ <span style="color: var(--accent2);">— in progress</span></span>
+      <span class="tag">CompTIA Network+</span>
+      <span class="tag">CompTIA Security+</span>
+      <span class="tag">PowerShell</span>
+      <span class="tag">Proxmox</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Projects</p>
+
+  <div class="project-card fade-up">
+    <div class="project-num">01</div>
+    <div class="project-content">
+      <div class="project-sub">Homelab · Infrastructure</div>
+      <h3 class="project-title">Self-Hosted Home Server</h3>
+      <p class="project-desc">
+        A fully containerized homelab running on a single machine, publicly accessible via a custom domain.
+        Services include Nextcloud for file storage, Vaultwarden for password management, Frigate for NVR camera
+        monitoring aggregating feeds from 7 IP cameras across 3 sites, Pi-hole for network-wide DNS ad blocking,
+        and a Caddy reverse proxy handling HTTPS for all services via Cloudflare DNS challenge.
+        Everything is orchestrated with Docker Compose and managed through Dockge.
+      </p>
+      <div class="project-stack">
+        <span class="tag">Docker</span>
+        <span class="tag">Caddy</span>
+        <span class="tag">Pi-hole</span>
+        <span class="tag">Nextcloud</span>
+        <span class="tag">Vaultwarden</span>
+        <span class="tag">Frigate</span>
+        <span class="tag">Linux</span>
+        <span class="tag">Cloudflare DNS</span>
+      </div>
+      <a class="project-link" href="https://home.speedalice.net" target="_blank" rel="noopener">
+        View live dashboard →
+      </a>
+      <div style="margin-top: 1.5rem; border: 1px solid var(--line); overflow: hidden; background: #f7f5f0;">
+        <svg width="100%" viewBox="0 0 680 320" role="img" style="font-family: 'DM Mono', monospace;">
+          <title>Homelab stack architecture</title>
+          <desc>Traffic flow from internet through Cloudflare DNS to Caddy reverse proxy then to Docker services</desc>
+          <defs>
+            <marker id="arr1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#6b6760" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </marker>
+          </defs>
+          <!-- Internet -->
+          <rect x="265" y="20" width="150" height="44" rx="8" fill="#eeeae2" stroke="#b4b2a9" stroke-width="1"/>
+          <text x="340" y="42" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#1a1814">Internet</text>
+          <!-- Arrow -->
+          <line x1="340" y1="64" x2="340" y2="94" stroke="#6b6760" stroke-width="1.5" marker-end="url(#arr1)"/>
+          <!-- Cloudflare -->
+          <rect x="240" y="96" width="200" height="52" rx="8" fill="#faeeda" stroke="#ef9f27" stroke-width="1"/>
+          <text x="340" y="116" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#412402">Cloudflare</text>
+          <text x="340" y="134" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#633806">DNS + proxy</text>
+          <!-- Arrow -->
+          <line x1="340" y1="148" x2="340" y2="178" stroke="#6b6760" stroke-width="1.5" marker-end="url(#arr1)"/>
+          <!-- Caddy -->
+          <rect x="220" y="180" width="240" height="52" rx="8" fill="#e1f5ee" stroke="#1d9e75" stroke-width="1"/>
+          <text x="340" y="200" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#04342c">Caddy</text>
+          <text x="340" y="218" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#085041">Reverse proxy + TLS</text>
+          <!-- Arrows to services -->
+          <line x1="275" y1="232" x2="105" y2="261" stroke="#9e9b97" stroke-width="1" marker-end="url(#arr1)"/>
+          <line x1="310" y1="232" x2="253" y2="261" stroke="#9e9b97" stroke-width="1" marker-end="url(#arr1)"/>
+          <line x1="370" y1="232" x2="401" y2="261" stroke="#9e9b97" stroke-width="1" marker-end="url(#arr1)"/>
+          <line x1="405" y1="232" x2="549" y2="261" stroke="#9e9b97" stroke-width="1" marker-end="url(#arr1)"/>
+          <!-- Services -->
+          <rect x="40" y="261" width="130" height="44" rx="8" fill="#eeedfe" stroke="#7f77dd" stroke-width="1"/>
+          <text x="105" y="276" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="500" fill="#26215c">Nextcloud</text>
+          <text x="105" y="293" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#534ab7">File storage</text>
+          <rect x="188" y="261" width="130" height="44" rx="8" fill="#eeedfe" stroke="#7f77dd" stroke-width="1"/>
+          <text x="253" y="276" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="500" fill="#26215c">Vaultwarden</text>
+          <text x="253" y="293" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#534ab7">Passwords</text>
+          <rect x="336" y="261" width="130" height="44" rx="8" fill="#eeedfe" stroke="#7f77dd" stroke-width="1"/>
+          <text x="401" y="276" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="500" fill="#26215c">Frigate</text>
+          <text x="401" y="293" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#534ab7">NVR cameras</text>
+          <rect x="484" y="261" width="130" height="44" rx="8" fill="#eeedfe" stroke="#7f77dd" stroke-width="1"/>
+          <text x="549" y="276" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="500" fill="#26215c">Pi-hole</text>
+          <text x="549" y="293" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#534ab7">DNS blocking</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card fade-up">
+    <div class="project-num">02</div>
+    <div class="project-content">
+      <div class="project-sub">Networking · Multi-Site</div>
+      <h3 class="project-title">Multi-Site Business Network</h3>
+      <p class="project-desc">
+        Designed and deployed a segmented network infrastructure across three locations — a primary
+        residence and two small businesses — each running a UniFi Dream Router 7 connected via UniFi
+        site-to-site VPN. Each site is divided into purpose-specific VLANs to isolate traffic, enforce
+        security boundaries, and follow PCI-DSS network segmentation best practices for POS isolation.
+      </p>
+      <p class="project-desc" style="margin-top: 0.75rem;">
+        The primary site runs 4 VLANs covering secure devices, the infrastructure server, IoT smart home
+        devices, and VPN clients including a WireGuard remote access tunnel. Branch site A runs 8 VLANs
+        separating POS, surveillance (4 IP cameras feeding Frigate), IoT climate control, a Simplisafe
+        security system, guest WiFi, staff WiFi, and VoIP. Branch site B runs 4 VLANs for secure devices,
+        surveillance (3 IP cameras), POS, and guest WiFi. 19 VLANs total across all sites.
+      </p>
+      <div class="project-stack">
+        <span class="tag">UniFi</span>
+        <span class="tag">VLANs</span>
+        <span class="tag">Site-to-Site VPN</span>
+        <span class="tag">WireGuard</span>
+        <span class="tag">PCI-DSS</span>
+        <span class="tag">VoIP</span>
+        <span class="tag">IP Cameras</span>
+        <span class="tag">IoT Segmentation</span>
+      </div>
+      <div style="margin-top: 1.5rem; border: 1px solid var(--line); overflow: hidden;">
+        <svg width="100%" viewBox="0 0 680 380" role="img" style="font-family: 'DM Mono', monospace;">
+          <title>Multi-site network diagram</title>
+          <desc>Three UniFi routers — primary site, branch site A, and branch site B — connected via site-to-site VPN, each with multiple VLANs shown</desc>
+          <defs>
+            <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#6b6760" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </marker>
+          </defs>
+          <!-- Home container -->
+          <rect x="20" y="20" width="190" height="340" rx="12" fill="#e1f5ee" stroke="#1d9e75" stroke-width="1"/>
+          <text x="115" y="46" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#04342c">Home</text>
+          <text x="115" y="64" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#085041">UniFi DR7 · 4 VLANs</text>
+          <rect x="36" y="82" width="158" height="30" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="115" y="97" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">Secure devices</text>
+          <rect x="36" y="120" width="158" height="30" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="115" y="135" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">Infrastructure server</text>
+          <rect x="36" y="158" width="158" height="30" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="115" y="173" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">IoT / smart home</text>
+          <rect x="36" y="196" width="158" height="30" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="115" y="211" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">VPN clients</text>
+          <!-- Nail salon container -->
+          <rect x="244" y="20" width="192" height="340" rx="12" fill="#eeedfe" stroke="#7f77dd" stroke-width="1"/>
+          <text x="340" y="46" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#26215c">Branch Site A</text>
+          <text x="340" y="64" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#3c3489">UniFi DR7 · 8 VLANs</text>
+          <rect x="260" y="82" width="160" height="28" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="340" y="96" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">Secure devices</text>
+          <rect x="260" y="118" width="160" height="28" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="340" y="132" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">POS (PCI-DSS)</text>
+          <rect x="260" y="154" width="160" height="28" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="340" y="168" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">Surveillance · 4 cams</text>
+          <rect x="260" y="190" width="160" height="28" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="340" y="204" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">IoT climate</text>
+          <rect x="260" y="226" width="160" height="28" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="340" y="240" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">Security system</text>
+          <rect x="260" y="262" width="160" height="28" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="340" y="276" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">Guest / Staff WiFi</text>
+          <rect x="260" y="298" width="160" height="28" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="340" y="312" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">VoIP</text>
+          <!-- Hair salon container -->
+          <rect x="468" y="20" width="192" height="340" rx="12" fill="#faece7" stroke="#d85a30" stroke-width="1"/>
+          <text x="564" y="46" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#4a1b0c">Branch Site B</text>
+          <text x="564" y="64" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#712b13">UniFi DR7 · 4 VLANs</text>
+          <rect x="484" y="82" width="160" height="30" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="564" y="97" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">Secure devices</text>
+          <rect x="484" y="120" width="160" height="30" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="564" y="135" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">Surveillance · 3 cams</text>
+          <rect x="484" y="158" width="160" height="30" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="564" y="173" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">POS (PCI-DSS)</text>
+          <rect x="484" y="196" width="160" height="30" rx="6" fill="#f7f5f0" stroke="#b4b2a9" stroke-width="0.5"/>
+          <text x="564" y="211" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#444441">Guest WiFi</text>
+          <!-- VPN lines -->
+          <line x1="210" y1="188" x2="242" y2="188" stroke="#1d9e75" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr2)"/>
+          <line x1="242" y1="200" x2="210" y2="200" stroke="#1d9e75" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr2)"/>
+          <line x1="436" y1="188" x2="466" y2="188" stroke="#7f77dd" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr2)"/>
+          <line x1="466" y1="200" x2="436" y2="200" stroke="#7f77dd" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr2)"/>
+          <text x="227" y="181" text-anchor="middle" font-size="10" fill="#6b6760">VPN</text>
+          <text x="452" y="181" text-anchor="middle" font-size="10" fill="#6b6760">VPN</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card fade-up">
+    <div class="project-num">03</div>
+    <div class="project-content">
+      <div class="project-sub">Hardware · Build</div>
+      <h3 class="project-title">Home Server Build</h3>
+      <p class="project-desc">
+        Custom-built ITX server housed in a Fractal Ridge case, purpose-designed for low-footprint
+        24/7 operation. Specced with an AMD Ryzen 7 5700G for its integrated graphics — eliminating
+        the need for a discrete GPU while keeping power consumption low. 64 GB of DDR4 gives the
+        system plenty of headroom to run all Docker containers simultaneously without contention.
+      </p>
+      <p class="project-desc" style="margin-top: 0.75rem;">
+        Storage is tiered: a Samsung 970 Evo 1 TB NVMe handles the OS and active container data
+        for fast I/O, an 8 TB Seagate Barracuda handles bulk storage for Nextcloud, and a 4 TB
+        WD Purple — a surveillance-grade drive rated for continuous write workloads — handles
+        Frigate's camera footage from 7 IP cameras across 3 sites. Powered by a Silverstone 500W
+        80+ Gold SFX unit keeping the whole build compact and efficient.
+      </p>
+      <div class="project-stack">
+        <span class="tag">AMD Ryzen 7 5700G</span>
+        <span class="tag">64 GB DDR4</span>
+        <span class="tag">1 TB NVMe</span>
+        <span class="tag">8 TB HDD</span>
+        <span class="tag">4 TB WD Purple</span>
+        <span class="tag">ITX Form Factor</span>
+        <span class="tag">SFX PSU</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card fade-up">
+    <div class="project-num">04</div>
+    <div class="project-content">
+      <div class="project-sub">Hardware · Build</div>
+      <h3 class="project-title">Development & Virtualization Workstation</h3>
+      <p class="project-desc">
+        Built and maintained a high-performance ITX workstation used for infrastructure experimentation,
+        container testing, scripting, and validating network configurations before deploying to production.
+        Housed in a Cooler Master NR200P V2 with a Lian Li Gallahad II 240mm AIO and powered by a
+        Corsair SF1000 for clean, stable power in a compact form factor.
+      </p>
+      <p class="project-desc" style="margin-top: 0.75rem;">
+        Specced with an AMD Ryzen 9 9800X3D, Gigabyte RTX 3080 Ti, and 32 GB of G.Skill DDR5 6000 MHz
+        on a Gigabyte B650I AORUS Ultra. Storage runs across two Samsung 970 Evo NVMe drives — 2 TB and
+        4 TB — providing fast local storage for VMs, Docker testing environments, and development tooling.
+      </p>
+      <div class="project-stack">
+        <span class="tag">Ryzen 9 9800X3D</span>
+        <span class="tag">RTX 3080 Ti</span>
+        <span class="tag">32 GB DDR5 6000</span>
+        <span class="tag">6 TB NVMe</span>
+        <span class="tag">240mm AIO</span>
+        <span class="tag">Corsair SF1000</span>
+        <span class="tag">ITX Form Factor</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- PROBLEMS SOLVED -->
+<section id="problems">
+  <p class="section-label">Problems solved</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line);">
+
+    <div style="background: var(--bg); padding: 2rem 1.75rem; transition: background 0.2s;" onmouseenter="this.style.background='#fff'" onmouseleave="this.style.background='var(--bg)'">
+      <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.5rem;">Challenge</div>
+      <p style="font-size: 13px; color: var(--ink); margin-bottom: 1rem; font-weight: 500;">Securely exposing self-hosted services to the public internet</p>
+      <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.5rem;">Solution</div>
+      <p style="font-size: 13px; color: var(--ink2); line-height: 1.8;">Public-facing access is minimized to only required services, with HTTPS handled through Caddy and automatic TLS renewal via Cloudflare DNS challenge. Each service sits behind its own subdomain with no direct exposure to the internet.</p>
+    </div>
+
+    <div style="background: var(--bg); padding: 2rem 1.75rem; transition: background 0.2s;" onmouseenter="this.style.background='#fff'" onmouseleave="this.style.background='var(--bg)'">
+      <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.5rem;">Challenge</div>
+      <p style="font-size: 13px; color: var(--ink); margin-bottom: 1rem; font-weight: 500;">Preventing guest and POS devices from reaching each other or internal systems</p>
+      <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.5rem;">Solution</div>
+      <p style="font-size: 13px; color: var(--ink2); line-height: 1.8;">Dedicated VLANs per device class with inter-VLAN routing disabled. POS systems are fully isolated on their own VLAN following PCI-DSS segmentation best practices. Guest WiFi has no path to internal resources.</p>
+    </div>
+
+    <div style="background: var(--bg); padding: 2rem 1.75rem; transition: background 0.2s;" onmouseenter="this.style.background='#fff'" onmouseleave="this.style.background='var(--bg)'">
+      <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.5rem;">Challenge</div>
+      <p style="font-size: 13px; color: var(--ink); margin-bottom: 1rem; font-weight: 500;">Centralizing camera footage from 7 IP cameras across 3 physically separate sites</p>
+      <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.5rem;">Solution</div>
+      <p style="font-size: 13px; color: var(--ink2); line-height: 1.8;">Cameras at branch sites stream over site-to-site VPN tunnels back to Frigate running on the home server. Footage is stored on a WD Purple surveillance-grade drive rated for continuous write workloads.</p>
+    </div>
+
+    <div style="background: var(--bg); padding: 2rem 1.75rem; transition: background 0.2s;" onmouseenter="this.style.background='#fff'" onmouseleave="this.style.background='var(--bg)'">
+      <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.5rem;">Challenge</div>
+      <p style="font-size: 13px; color: var(--ink); margin-bottom: 1rem; font-weight: 500;">Managing multiple Docker stacks without SSH for every change</p>
+      <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.5rem;">Solution</div>
+      <p style="font-size: 13px; color: var(--ink2); line-height: 1.8;">Dockge provides a web UI for managing all Docker Compose stacks, viewing logs, and restarting services. Accessible through internal networking and secured remote access via Caddy reverse proxy.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">Experience</p>
+
+  <div style="border: 1px solid var(--line);">
+    <div style="padding: 2rem 2.5rem; border-bottom: 1px solid var(--line);">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+        <h3 style="font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--ink);">Operations & IT</h3>
+        <span style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink3);">2023 — Present</span>
+      </div>
+      <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1.25rem;">Small Business · Nail Salon · New Jersey</div>
+      <div style="display: flex; flex-direction: column; gap: 0;">
+        <div style="display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--line);">
+          <span style="color: var(--accent2); font-size: 13px; flex-shrink: 0;">→</span>
+          <p style="font-size: 13px; color: var(--ink2); line-height: 1.8;">Identified a critical security gap — all business, POS, guest, and IoT devices operating on a single flat LAN with no segmentation. Designed and deployed full VLAN segmentation across 8 VLANs as the sole person responsible for the network infrastructure.</p>
+        </div>
+        <div style="display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--line);">
+          <span style="color: var(--accent2); font-size: 13px; flex-shrink: 0;">→</span>
+          <p style="font-size: 13px; color: var(--ink2); line-height: 1.8;">Sole person responsible for network design, POS system setup, VoIP provisioning, IP camera installation, and ongoing infrastructure maintenance across the business.</p>
+        </div>
+        <div style="display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--line);">
+          <span style="color: var(--accent2); font-size: 13px; flex-shrink: 0;">→</span>
+          <p style="font-size: 13px; color: var(--ink2); line-height: 1.8;">Led the business formation process — handling legal entity setup, documentation, and compliance requirements to establish the salon as a registered business entity.</p>
+        </div>
+        <div style="display: flex; gap: 1rem; padding: 0.75rem 0;">
+          <span style="color: var(--accent2); font-size: 13px; flex-shrink: 0;">→</span>
+          <p style="font-size: 13px; color: var(--ink2); line-height: 1.8;">Managed vendor relationships and coordinated third-party service providers for technology and operational needs across the business.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Contact</p>
+  <div class="contact-inner">
+    <div>
+      <h2 class="contact-heading">Let's work<br><em>together.</em></h2>
+      <p style="color: var(--ink2); margin-top: 1.5rem; line-height: 1.9; font-size: 13px;">
+        I'm actively looking for full-time opportunities in IT infrastructure, sysadmin, or network engineering.
+        If you think I'd be a good fit, reach out.
+      </p>
+    </div>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:cube482@gmail.com">
+        <div>
+          <div class="contact-link-label">Email</div>
+          <div class="contact-link-val">cube482@gmail.com</div>
+        </div>
+        <div class="contact-arrow">↗</div>
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/jae-s-an/" target="_blank" rel="noopener">
+        <div>
+          <div class="contact-link-label">LinkedIn</div>
+          <div class="contact-link-val">/in/jae-s-an</div>
+        </div>
+        <div class="contact-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Jae An</span>
+  <span>jaean.com</span>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+# Dotfiles and home directory clutter (repo lives in ~)
+.acme.sh/
+.bash_history
+.bash_logout
+.bashrc
+.cache/
+.claude/
+.claude.json
+.config/
+.docker/
+.lesshst
+.local/
+.npm/
+.profile
+.selected_editor
+.ssh/
+.sudo_as_admin_successful
+.tmux.conf
+.wget-hsts
+.Xauthority
+
+# Frigate camera footage/thumbnails
+frigate/storage/
+
+# Non-service directories
+go/
+
+# Environment files — copy .env.example to .env and fill in your values
+.env
+
+# Sensitive config files — see .example versions
+frigate/config/config.yml
+frigate/docker-compose.yml
+monitoring/docker-compose.yml
+duckdns/duck.sh
+homepage/config/services.yaml
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+
+# MariaDB/MySQL data files
+aria_log.*
+ib_buffer_pool
+ibdata*
+ib_logfile*
+ibtmp*
+multi-master.info
+mysql_upgrade_info
+ddl_recovery.log
+
+# Runtime data directories
+nextcloud/data/
+nextcloud/db/
+pihole/etc-pihole/
+pihole/pihole.zip
+vaultwarden/data/
+uptime/data/
+dockge/data/
+
+# Frigate runtime files
+frigate/config/backup.db
+frigate/config/backup_config.yaml
+frigate/config/.jwt_secret
+frigate/config/.exports
+frigate/config/.search_stats.json
+frigate/config/.timeline
+frigate/config/.vacuum
+frigate/config/go2rtc_homekit.yml
+frigate/config/config.ymlbak
+
+# Logs
+*.log
+
+# Compiled binaries
+go/bin/
+
+# Caddy generated data (TLS certs, ACME state)
+caddy/caddy_data/
+caddy/caddy_config/

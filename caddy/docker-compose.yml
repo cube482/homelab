@@ -1,0 +1,21 @@
+services:
+  caddy:
+    image: slothcroissant/caddy-cloudflaredns:latest
+    container_name: caddy
+    restart: unless-stopped
+    environment:
+      CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy_data:/data
+      - ./caddy_config:/config
+      - /home/jae/portfolio:/srv/jaean
+    ports:
+      - "443:443"
+      - "80:80"
+    networks:
+      - caddy_network
+
+networks:
+  caddy_network:
+    external: true

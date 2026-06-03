@@ -1,0 +1,64 @@
+jaean.com {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+    root * /srv/jaean
+    file_server
+}
+
+vaultwarden.speedalice.net {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+    reverse_proxy vaultwarden:80
+}
+
+frigate.speedalice.net {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+    reverse_proxy https://frigate:8971 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+docker.speedalice.net {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+    reverse_proxy dockge:5001
+}
+nextcloud.speedalice.net {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+    reverse_proxy nextcloud:80
+}
+pihole.speedalice.net {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+    reverse_proxy pihole:80
+}
+home.speedalice.net {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+    reverse_proxy homepage:3000
+}
+
+uptime.speedalice.net {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+    reverse_proxy uptime-kuma:3001
+}
+
+monitor.speedalice.net {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+    reverse_proxy grafana:3000
+}

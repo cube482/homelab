@@ -1,0 +1,193 @@
+mqtt:
+  enabled: false
+
+auth:
+  enabled: true
+
+detectors:
+  cpu1:
+    type: cpu
+    num_threads: 4
+
+ffmpeg:
+  hwaccel_args: preset-vaapi
+
+go2rtc:
+  streams:
+    parking_lot:
+      - rtsp://CAMERA_USER:CAMERA_PASSWORD@SPEEDALICE_CAM1_IP:554/stream2
+    front_section:
+      - rtsp://CAMERA_USER:CAMERA_PASSWORD@SPEEDALICE_CAM2_IP:554/stream2
+    middle_section:
+      - rtsp://CAMERA_USER:CAMERA_PASSWORD@SPEEDALICE_CAM3_IP:554/stream2
+    pedicure_section:
+      - rtsp://CAMERA_USER:CAMERA_PASSWORD@SPEEDALICE_CAM4_IP:554/stream2
+    jangwon_front:
+      - rtsp://CAMERA_USER:CAMERA_PASSWORD@JANGWON_CAM1_IP:554/stream2
+    jangwon_back:
+      - rtsp://CAMERA_USER:CAMERA_PASSWORD@JANGWON_CAM2_IP:554/stream2
+    jangwon_rear:
+      - rtsp://CAMERA_USER:CAMERA_PASSWORD@JANGWON_CAM3_IP:554/stream2
+
+cameras:
+  parking_lot:
+    ffmpeg:
+      inputs:
+        - path: rtsp://CAMERA_USER:CAMERA_PASSWORD@SPEEDALICE_CAM1_IP:554/stream1
+          roles:
+            - detect
+            - record
+    live:
+      streams:
+        parking_lot: parking_lot
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+      fps: 5
+    record:
+      enabled: true
+    snapshots:
+      enabled: true
+    motion:
+      mask:
+        0,0.61,0.572,0.421,0.837,0.581,0.865,0.547,0.889,0.262,0.514,0.077,0.004,0.1
+
+  front_section:
+    ffmpeg:
+      inputs:
+        - path: rtsp://CAMERA_USER:CAMERA_PASSWORD@SPEEDALICE_CAM2_IP:554/stream1
+          roles:
+            - detect
+            - record
+    live:
+      streams:
+        front_section: front_section
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+      fps: 5
+    record:
+      enabled: true
+    snapshots:
+      enabled: true
+
+  middle_section:
+    ffmpeg:
+      inputs:
+        - path: rtsp://CAMERA_USER:CAMERA_PASSWORD@SPEEDALICE_CAM3_IP:554/stream1
+          roles:
+            - detect
+            - record
+    live:
+      streams:
+        middle_section: middle_section
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+      fps: 5
+    record:
+      enabled: true
+    snapshots:
+      enabled: true
+
+  pedicure_section:
+    ffmpeg:
+      inputs:
+        - path: rtsp://CAMERA_USER:CAMERA_PASSWORD@SPEEDALICE_CAM4_IP:554/stream1
+          roles:
+            - detect
+            - record
+    live:
+      streams:
+        pedicure_section: pedicure_section
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+      fps: 5
+    record:
+      enabled: true
+    snapshots:
+      enabled: true
+
+  jangwon_front:
+    ffmpeg:
+      inputs:
+        - path: rtsp://CAMERA_USER:CAMERA_PASSWORD@JANGWON_CAM1_IP:554/stream1
+          roles:
+            - detect
+            - record
+    live:
+      streams:
+        jangwon_front: jangwon_front
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+      fps: 5
+    record:
+      enabled: true
+    snapshots:
+      enabled: true
+
+  jangwon_back:
+    ffmpeg:
+      inputs:
+        - path: rtsp://CAMERA_USER:CAMERA_PASSWORD@JANGWON_CAM2_IP:554/stream1
+          roles:
+            - detect
+            - record
+    live:
+      streams:
+        jangwon_back: jangwon_back
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+      fps: 5
+    record:
+      enabled: true
+    snapshots:
+      enabled: true
+
+  jangwon_rear:
+    ffmpeg:
+      inputs:
+        - path: rtsp://CAMERA_USER:CAMERA_PASSWORD@JANGWON_CAM3_IP:554/stream1
+          roles:
+            - detect
+            - record
+    live:
+      streams:
+        jangwon_rear: jangwon_rear
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+      fps: 5
+    record:
+      enabled: true
+    snapshots:
+      enabled: true
+
+version: 0.17-0
+
+camera_groups:
+  Speedalice_Nails:
+    order: 1
+    icon: LuTvMinimalPlay
+    cameras:
+      - parking_lot
+      - front_section
+      - middle_section
+      - pedicure_section
+  The_Jangwon:
+    order: 2
+    icon: LuVideo
+    cameras:
+      - jangwon_front
+      - jangwon_back
+      - jangwon_rear
